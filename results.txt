@@ -1,0 +1,24 @@
+Time: 560.6 ms
+------------------------------
+Type: info_crosswalk
+Conf: 93.8%
+
+Type: info_crosswalk
+Conf: 91.6%
+
+Type: prio_give_way
+Conf: 89.7%
+
+Type: info_crosswalk
+Conf: 83.3%
+
+Type: mand_straigh_left
+Conf: 66.4%
+
+Type: mand_straight
+Conf: 64.6%
+
+Type: info_crosswalk
+Conf: 32.3%
+
+
