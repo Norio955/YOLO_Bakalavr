@@ -6,4 +6,5 @@ disable=missing-module-docstring,
         attribute-defined-outside-init,
         broad-exception-caught,
         line-too-long,
-        no-member
+        no-member,
+        import-error

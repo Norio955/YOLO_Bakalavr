@@ -1,10 +1,11 @@
-import tkinter as tk
-from tkinter import filedialog, messagebox
-from PIL import Image, ImageTk
-import cv2
-from ultralytics import YOLO
 import os
 import datetime
+import tkinter as tk
+from tkinter import filedialog, messagebox
+import cv2
+from PIL import Image, ImageTk
+from ultralytics import YOLO
+
 
 class RoadSignDetectorApp:
     def __init__(self, root):
@@ -29,8 +30,8 @@ class RoadSignDetectorApp:
         try:
             self.model = YOLO("best.pt")
             print("Модель best.pt завантажено автоматично.")
-        except:
-            print("Модель не знайдено.")
+        except Exception as e:
+            print(f"Модель не знайдено: {e}")  #  Додав f перед рядком
             # Якщо файлу немає поруч, через пів секунди нагадаємо про це користувачу
             self.root.after(500, self.show_startup_warning)
 
@@ -45,12 +46,24 @@ class RoadSignDetectorApp:
         self.canvas_after.place(x=650, y=60)
 
         # Кнопки для керування відтворенням відео
-        self.btn_pause = tk.Button(root, text="⏸ Pause", bg="#ffecb3", font=("Arial", 11), command=self.toggle_pause,
-                                   state="disabled")
+        self.btn_pause = tk.Button(
+            root,
+            text="⏸ Pause",
+            bg="#ffecb3",
+            font=("Arial", 11),
+            command=self.toggle_pause,
+            state="disabled",
+        )
         self.btn_pause.place(x=500, y=200, width=100, height=40)
 
-        self.btn_stop = tk.Button(root, text="⏹ Stop", bg="#ffcdd2", font=("Arial", 11), command=self.stop_video,
-                                  state="disabled")
+        self.btn_stop = tk.Button(
+            root,
+            text="⏹ Stop",
+            bg="#ffcdd2",
+            font=("Arial", 11),
+            command=self.stop_video,
+            state="disabled",
+        )
         self.btn_stop.place(x=500, y=260, width=100, height=40)
 
         # Секція кнопок для роботи з фотографіями
@@ -79,15 +92,20 @@ class RoadSignDetectorApp:
         self.text_results.place(x=650, y=510)
 
         # Кнопка для збереження поточного результату у файл
-        btn_save = tk.Button(root, text="💾 Save (Img + Txt)", bg="#cfd8dc", font=("Arial", 10, "bold"),
-                             command=self.save_results)
+        btn_save = tk.Button(
+            root,
+            text="💾 Save (Img + Txt)",
+            bg="#cfd8dc",
+            font=("Arial", 10, "bold"),
+            command=self.save_results,
+        )
         btn_save.place(x=650, y=660, width=200, height=40)
 
     def show_startup_warning(self):
         # Виводимо підказку, якщо користувач забув покласти модель у папку
         messagebox.showwarning(
             "Увага",
-            "⚠️ Модель не знайдено!\n\nДля початку роботи натисніть кнопку 'Load Model' та оберіть файл .pt."
+            "⚠️ Модель не знайдено!\n\nДля початку роботи натисніть кнопку 'Load Model' та оберіть файл .pt.",
         )
 
     def load_custom_model(self):
@@ -193,7 +211,7 @@ class RoadSignDetectorApp:
         ret, frame = self.cap.read()
         if ret:
             # Обробка кадру моделлю (використовуємо менший розмір для швидкості)
-            results = self.model(frame, imgsz=320, conf=0.25, verbose=False)
+            results = self.model(frame, imgsz=320, conf=0.25, verbose=False)  # type: ignore
             annotated_frame = results[0].plot()
             self.last_frame_to_save = annotated_frame
 
@@ -280,8 +298,9 @@ class RoadSignDetectorApp:
             name = result.names[cls]
             self.text_results.insert(tk.END, f"{name}: {conf * 100:.1f}%\n")
 
+
 if __name__ == "__main__":
     # Запуск головного циклу обробки подій вікна
-    root = tk.Tk()
-    app = RoadSignDetectorApp(root)
-    root.mainloop()
+    main_window = tk.Tk()
+    app = RoadSignDetectorApp(main_window)
+    main_window.mainloop()
