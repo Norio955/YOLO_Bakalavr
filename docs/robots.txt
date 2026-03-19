@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://norio955.github.io/RoadSigns-Landing/sitemap.xml
