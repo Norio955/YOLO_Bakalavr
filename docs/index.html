@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Система розпізнавання дорожніх знаків | Бакалаврська робота</title>
+
+    <meta name="description" content="Розробка програмного забезпечення для розпізнавання дорожніх знаків на основі YOLO v11. Система забезпечує детекцію в реальному часі з високою точністю.">
+    <meta name="keywords" content="комп'ютерний зір, YOLO, дорожні знаки, Python, PyTorch, розпізнавання об'єктів, нейронні мережі">
+    <meta name="author" content="Добродумов Нікіта">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Road Sign Recognition System - Bachelor Thesis">
+    <meta property="og:description" content="Software for automatic detection and classification of road signs using YOLO v11 neural network.">
+    <meta property="og:image" content="img/preview.jpg">
+    <meta property="og:url" content="https://norio955.github.io/RoadSigns-Landing/">
+
+    <link rel="icon" href="favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="img/sumdu_logo.png"> <link rel="stylesheet" href="style.css">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Road Sign Recognition System",
+      "operatingSystem": "Windows, Linux",
+      "applicationCategory": "ComputerVisionApplication",
+      "author": {
+        "@type": "Person",
+        "name": "Добродумов Нікіта"
+      },
+      "description": "Програмне забезпечення для розпізнавання дорожніх знаків на основі YOLO v11.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "UAH"
+      }
+    }
+    </script>
+</head>
+<body>
+
+    <header role="banner">
+        <div class="container header-content">
+            <div class="logo-box">
+                <a href="#" aria-label="Повернутися на початок">
+                    <img src="img/sumdu_logo.png" alt="Логотип СумДУ" class="university-logo">
+                </a>
+            </div>
+            <nav role="navigation" aria-label="Головне меню">
+                <ul>
+                    <li><a href="#about">Про роботу</a></li>
+                    <li><a href="#tasks">Завдання</a></li>
+                    <li><a href="#results">Результати</a></li>
+                    <li><a href="#contacts">Контакти</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main role="main">
+        <section class="hero" aria-labelledby="hero-title">
+            <div class="container">
+                <h1 id="hero-title">Інформаційне та програмне забезпечення системи комп’ютерного зору для розпізнавання дорожніх знаків</h1>
+                <h2 class="subtitle">Information and software for a computer vision system for recognizing road signs</h2>
+
+                <p class="description">
+                    Програмне рішення для автоматичної детекції та класифікації дорожніх знаків у відеопотоці та на зображеннях з використанням нейромережі YOLO v11.
+                </p>
+
+                <p class="keywords"><strong>Ключові слова:</strong> Computer Vision, YOLO v11, Python, Road Signs, Neural Networks.</p>
+
+                <a href="https://github.com/Norio955/YOLO_Bakalavr" class="btn" target="_blank" rel="noopener noreferrer">Дивитися на GitHub</a>
+            </div>
+        </section>
+
+        <section id="about" class="container section-block">
+            <h3>Мета дослідження</h3>
+            <p>
+                Створення ефективної та швидкодіючої системи детекції дорожніх знаків, яка може бути використана в системах допомоги водіям (ADAS) або автономних транспортних засобах для підвищення безпеки дорожнього руху.
+            </p>
+            <div class="visual-demonstration">
+                <img src="img/demo.jpg" alt="Демонстрація роботи програми: детекція знаків на дорозі" loading="lazy">
+                <p class="caption">Приклад роботи алгоритму детекції на тестовому зображенні</p>
+            </div>
+        </section>
+
+        <section id="tasks" class="container section-block bg-light">
+            <h3>Основні завдання</h3>
+            <ul class="task-list">
+                <li>Проаналізувати існуючі методи та алгоритми комп'ютерного зору для детекції об'єктів.</li>
+                <li>Розробити та навчити модель нейронної мережі на базі архітектури YOLO v11.</li>
+                <li>Створити графічний інтерфейс користувача (GUI) для зручної взаємодії з системою.</li>
+                <li>Реалізувати обробку відеопотоку в реальному часі.</li>
+                <li>Провести тестування точності розпізнавання та оптимізувати швидкодію.</li>
+            </ul>
+        </section>
+
+        <section id="results" class="container section-block">
+            <h3>Очікувані результати</h3>
+            <div class="results-grid">
+                <div class="result-item">
+                    <h4>Висока точність</h4>
+                    <p>Досягнення метрики mAP (mean Average Precision) вище 90% на тестових даних.</p>
+                </div>
+                <div class="result-item">
+                    <h4>Швидкодія</h4>
+                    <p>Забезпечення обробки відео зі швидкістю не менше 30 FPS на сучасному обладнанні.</p>
+                </div>
+                <div class="result-item">
+                    <h4>Практичне застосування</h4>
+                    <p>Готовий програмний продукт із зручним інтерфейсом для завантаження фото/відео.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="contacts" class="container section-block">
+            <h3>Контактна інформація</h3>
+            <div class="contact-info">
+                <p><strong>Виконав:</strong> ст. гр. ІН-22 Добродумов Нікіта</p>
+                <p><strong>Email:</strong> <a href="mailto:ndobrodumov@student.sumdu.edu.ua">ndobrodumov@student.sumdu.edu.ua</a></p>
+                <p><strong>GitHub:</strong> <a href="https://github.com/Norio955" target="_blank" rel="noopener noreferrer">github.com/Norio955</a></p>
+            </div>
+        </section>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <p>&copy; 2026 Сумський державний університет, Факультет ЕлІТ</p>
+        </div>
+    </footer>
+
+</body>
+</html>
