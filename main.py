@@ -116,6 +116,9 @@ class RoadSignDetectorApp:
                 img = Image.open(self.image_path)
                 img.thumbnail((400, 400))
                 self.photo_before = ImageTk.PhotoImage(img)
+
+                # Очищення лівого канвасу перед виведенням
+                self.canvas_before.delete("all")
                 self.canvas_before.create_image(200, 200, image=self.photo_before)
 
                 self.canvas_after.delete("all")
@@ -144,6 +147,9 @@ class RoadSignDetectorApp:
             res_pil.thumbnail((400, 400))
 
             self.photo_after = ImageTk.PhotoImage(res_pil)
+
+            # Очищення правого канвасу перед виведенням
+            self.canvas_after.delete("all")
             self.canvas_after.create_image(200, 200, image=self.photo_after)
 
             self.log_results(results[0])
@@ -216,10 +222,15 @@ class RoadSignDetectorApp:
 
                 frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
                 self.photo_in_ref = ImageTk.PhotoImage(self.resize_for_canvas(frame_rgb))
-                self.canvas_before.create_image(200, 200, image=self.photo_in_ref)
 
                 annotated_rgb = cv2.cvtColor(annotated_frame, cv2.COLOR_BGR2RGB)
                 self.photo_out_ref = ImageTk.PhotoImage(self.resize_for_canvas(annotated_rgb))
+
+                # Очищення обох канвасів перед відмальовкою нового кадру відео
+                self.canvas_before.delete("all")
+                self.canvas_after.delete("all")
+
+                self.canvas_before.create_image(200, 200, image=self.photo_in_ref)
                 self.canvas_after.create_image(200, 200, image=self.photo_out_ref)
 
                 self.root.after(1, self.video_loop)
