@@ -50,10 +50,15 @@ class RoadSignDetectorApp:
             root, text="⏸ Pause", bg="#ffecb3", font=("Arial", 11), command=self.toggle_pause, state="disabled"
         )
         self.btn_pause.place(x=500, y=200, width=100, height=40)
+
         self.btn_stop = tk.Button(
             root, text="⏹ Stop", bg="#ffcdd2", font=("Arial", 11), command=self.stop_video, state="disabled"
         )
         self.btn_stop.place(x=500, y=260, width=100, height=40)
+
+        # НОВА КНОПКА CLEAR
+        self.btn_clear = tk.Button(root, text="🗑 Clear", bg="#e0e0e0", font=("Arial", 11), command=self.clear_ui)
+        self.btn_clear.place(x=500, y=320, width=100, height=40)
 
         tk.Label(root, text="Photo Mode:", font=("Arial", 10, "bold")).place(x=50, y=480)
         tk.Button(root, text="📂 Upload Photo", bg="#b3e5fc", command=self.upload_photo).place(
@@ -84,10 +89,7 @@ class RoadSignDetectorApp:
         ).place(x=650, y=660, width=200, height=40)
 
     def handle_error(self, error_code, technical_details):
-        # 1. Лог для розробника (у файл та консоль)
         app_logger.error(f"[{error_code}] {technical_details}")
-
-        # 2. Локалізоване повідомлення для користувача
         user_msg = get_user_error_message(error_code)
         messagebox.showerror("Помилка додатка", f"{user_msg}\n\nКод: {error_code}")
 
@@ -107,6 +109,16 @@ class RoadSignDetectorApp:
             except Exception as e:
                 self.handle_error("ERR-MDL-201", f"Збій завантаження кастомної моделі: {e}")
 
+    # НОВА ФУНКЦІЯ ОЧИЩЕННЯ
+    def clear_ui(self):
+        self.stop_video()
+        self.canvas_before.delete("all")
+        self.canvas_after.delete("all")
+        self.text_results.delete(1.0, tk.END)
+        self.image_path = None
+        self.last_frame_to_save = None
+        app_logger.info("Інтерфейс очищено користувачем.")
+
     def upload_photo(self):
         self.stop_video()
         self.image_path = filedialog.askopenfilename(filetypes=[("Images", "*.jpg *.png *.jpeg")])
@@ -117,7 +129,6 @@ class RoadSignDetectorApp:
                 img.thumbnail((400, 400))
                 self.photo_before = ImageTk.PhotoImage(img)
 
-                # Очищення лівого канвасу перед виведенням
                 self.canvas_before.delete("all")
                 self.canvas_before.create_image(200, 200, image=self.photo_before)
 
@@ -148,7 +159,6 @@ class RoadSignDetectorApp:
 
             self.photo_after = ImageTk.PhotoImage(res_pil)
 
-            # Очищення правого канвасу перед виведенням
             self.canvas_after.delete("all")
             self.canvas_after.create_image(200, 200, image=self.photo_after)
 
@@ -162,10 +172,7 @@ class RoadSignDetectorApp:
             messagebox.showerror("Помилка", "Спочатку завантажте модель (Load Model)!")
             return
 
-        self.stop_video()
-        self.canvas_before.delete("all")
-        self.canvas_after.delete("all")
-        self.text_results.delete(1.0, tk.END)
+        self.clear_ui()  # Використовуємо нову функцію очищення перед завантаженням відео
 
         video_path = filedialog.askopenfilename(filetypes=[("Video", "*.mp4 *.avi *.mov *.mkv")])
         if video_path:
@@ -183,10 +190,7 @@ class RoadSignDetectorApp:
             messagebox.showerror("Помилка", "Спочатку завантажте модель (Load Model)!")
             return
 
-        self.stop_video()
-        self.canvas_before.delete("all")
-        self.canvas_after.delete("all")
-        self.text_results.delete(1.0, tk.END)
+        self.clear_ui()  # Використовуємо нову функцію очищення перед запуском камери
 
         try:
             app_logger.info("Підключення до веб-камери...")
@@ -226,7 +230,6 @@ class RoadSignDetectorApp:
                 annotated_rgb = cv2.cvtColor(annotated_frame, cv2.COLOR_BGR2RGB)
                 self.photo_out_ref = ImageTk.PhotoImage(self.resize_for_canvas(annotated_rgb))
 
-                # Очищення обох канвасів перед відмальовкою нового кадру відео
                 self.canvas_before.delete("all")
                 self.canvas_after.delete("all")
 
@@ -310,7 +313,6 @@ class RoadSignDetectorApp:
             name = result.names[cls]
             self.text_results.insert(tk.END, f"{name}: {conf * 100:.1f}%\n")
 
-            # Локальне логування в консоль/файл
             app_logger.debug(f"Знайдено: {name} ({conf * 100:.1f}%)")
 
 
